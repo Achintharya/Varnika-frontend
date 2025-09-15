@@ -23,7 +23,7 @@
   gap: 0.5rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #4f46e5;
+  color: #ff4000;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -38,7 +38,7 @@
 }
 
 .logo-text {
-  background: linear-gradient(135deg, #3894f5 0%, #4b0cb1 100%);
+  background: linear-gradient(135deg, #415c02 5%, #ff9d00 95%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -61,11 +61,11 @@
 }
 
 .nav-link:hover {
-  color: #4f46e5;
+  color: #e34b04;
 }
 
 .nav-link.active {
-  color: #4f46e5;
+  color: #e34b04;
 }
 
 .nav-link::after {

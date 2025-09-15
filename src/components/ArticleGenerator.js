@@ -16,11 +16,33 @@ function ArticleGenerator() {
   const [generatedArticles, setGeneratedArticles] = useState([]);
   const [sources, setSources] = useState([]);
   const [currentArticleFilename, setCurrentArticleFilename] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // Article type options
+  const articleTypeOptions = [
+    { value: 'detailed', label: 'Detailed Article' },
+    { value: 'summarized', label: 'Summarized Article' },
+    { value: 'points', label: 'Bullet Points' }
+  ];
 
   // Fetch articles and sources on component mount
   useEffect(() => {
     fetchArticles();
     fetchSources();
+  }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.custom-dropdown')) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   // Poll for job status
@@ -191,16 +213,33 @@ function ArticleGenerator() {
         </div>
         
         <div className="select-group">
-          <select
-            className="article-type-select"
-            value={articleType}
-            onChange={(e) => setArticleType(e.target.value)}
-            disabled={loading}
-          >
-            <option value="detailed">Detailed Article</option>
-            <option value="summarized">Summarized Article</option>
-            <option value="points">Bullet Points</option>
-          </select>
+          <div className="custom-dropdown">
+            <div 
+              className={`dropdown-header ${dropdownOpen ? 'open' : ''} ${loading ? 'disabled' : ''}`}
+              onClick={() => !loading && setDropdownOpen(!dropdownOpen)}
+            >
+              <span className="dropdown-selected">
+                {articleTypeOptions.find(opt => opt.value === articleType)?.label}
+              </span>
+              <span className="dropdown-arrow">▼</span>
+            </div>
+            {dropdownOpen && (
+              <div className="dropdown-options">
+                {articleTypeOptions.map((option) => (
+                  <div
+                    key={option.value}
+                    className={`dropdown-option ${articleType === option.value ? 'selected' : ''}`}
+                    onClick={() => {
+                      setArticleType(option.value);
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    {option.label}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         <button

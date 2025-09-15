@@ -14,7 +14,7 @@
 }
 
 .my-articles-modal {
-  background: #ffffff25;
+  background: #7070702f;
   backdrop-filter: blur(10px);
   border-radius: 16px;
   width: 90%;
@@ -34,7 +34,7 @@
   background: none;
   border: none;
   font-size: 2rem;
-  color: #6b7280;
+  color: #ca8402;
   cursor: pointer;
   width: 40px;
   height: 40px;
@@ -53,7 +53,7 @@
 .my-articles-title {
   font-size: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #f6ff91 20%, #ffa514 100%);
+  background: linear-gradient(135deg, #eaff00 30%, #ff9d00 90%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -102,7 +102,7 @@
 }
 
 .article-viewer-content {
-  background: #f9fafb7b;
+  background: #0000003f;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 2rem;
@@ -179,7 +179,7 @@
 }
 
 .article-viewer-content code {
-  background: #ffffffd3;
+  background: #7070702f;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
   font-family: "Courier New", monospace;
@@ -242,7 +242,7 @@
 }
 
 .article-card {
-  background: #f9fafb2c;
+  background: #65656571;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 1.5rem;
@@ -251,8 +251,8 @@
 
 .article-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  border-color: #4f46e5;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+  border-color: #e5a346;
 }
 
 .article-card-header {
@@ -260,14 +260,14 @@
 }
 
 .article-card-header h4 {
-  color: #1f2937;
+  color: #ffffffd1;
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
 .article-date {
-  color: #6b7280;
+  color: #ffffffab;
   font-size: 0.875rem;
 }
 
@@ -283,7 +283,7 @@
   font-weight: 500;
   border: 1px solid #e5e7ebc2;
   border-radius: 6px;
-  background: #ffffff33;
+  background: #a4a3a331;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -334,7 +334,7 @@
 }
 
 .sources-preview {
-  background: #f9fafb2c;
+  background: #a4a3a331;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 1rem;
@@ -395,7 +395,7 @@
   border: 1px solid #ffffff72;
   border-radius: 8px;
   color: #ffffffd8;
-  background: #ffffff49;
+  background: #a4a3a331;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
