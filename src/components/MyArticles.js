@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import API_BASE_URL from '../config/api';
 import './MyArticles.css';
 
 function MyArticles({ isOpen, onClose }) {
@@ -19,7 +20,7 @@ function MyArticles({ isOpen, onClose }) {
 
   const fetchArticles = async () => {
     try {
-      const response = await axios.get('/api/articles');
+      const response = await axios.get(`${API_BASE_URL}/api/articles`);
       setArticles(response.data.articles || []);
     } catch (err) {
       console.error('Error fetching articles:', err);
@@ -31,9 +32,9 @@ function MyArticles({ isOpen, onClose }) {
       // Try sources.md first, then fall back to sources.txt
       let response;
       try {
-        response = await axios.get('/api/articles/sources.md');
+        response = await axios.get(`${API_BASE_URL}/api/articles/sources.md`);
       } catch {
-        response = await axios.get('/api/articles/sources.txt');
+        response = await axios.get(`${API_BASE_URL}/api/articles/sources.txt`);
       }
       setSources(response.data);
     } catch (err) {
@@ -43,7 +44,7 @@ function MyArticles({ isOpen, onClose }) {
 
   const handleViewArticle = async (filename) => {
     try {
-      const response = await axios.get(`/api/articles/${filename}`);
+      const response = await axios.get(`${API_BASE_URL}/api/articles/${filename}`);
       let content = response.data;
       
       // Strip markdown code block wrapper if present
@@ -63,7 +64,7 @@ function MyArticles({ isOpen, onClose }) {
 
   const handleDownloadArticle = async (filename) => {
     try {
-      const response = await axios.get(`/api/articles/${filename}`);
+      const response = await axios.get(`${API_BASE_URL}/api/articles/${filename}`);
       const blob = new Blob([response.data], { type: 'text/plain' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -89,7 +90,7 @@ function MyArticles({ isOpen, onClose }) {
     }
 
     try {
-      await axios.delete(`/api/articles/${filename}`);
+      await axios.delete(`${API_BASE_URL}/api/articles/${filename}`);
       // Refresh the articles list after successful deletion
       fetchArticles();
       // Show success message (optional)

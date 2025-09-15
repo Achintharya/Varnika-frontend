@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import API_BASE_URL from '../config/api';
 import './ArticleGenerator.css';
 
 function ArticleGenerator() {
@@ -51,7 +52,7 @@ function ArticleGenerator() {
     if (jobId && loading) {
       const interval = setInterval(async () => {
         try {
-          const response = await axios.get(`/api/jobs/${jobId}`);
+          const response = await axios.get(`${API_BASE_URL}/api/jobs/${jobId}`);
           const job = response.data;
           
           setProgress(job.progress);
@@ -59,7 +60,7 @@ function ArticleGenerator() {
           
           if (job.status === 'completed') {
             // Fetch the article content
-            const articleResponse = await axios.get(`/api/articles/${job.result.filename}`);
+            const articleResponse = await axios.get(`${API_BASE_URL}/api/articles/${job.result.filename}`);
             let content = articleResponse.data;
             
             // Strip markdown code block wrapper if present
@@ -95,7 +96,7 @@ function ArticleGenerator() {
 
   const fetchArticles = async () => {
     try {
-      const response = await axios.get('/api/articles');
+      const response = await axios.get(`${API_BASE_URL}/api/articles`);
       setGeneratedArticles(response.data.articles || []);
     } catch (err) {
       console.error('Error fetching articles:', err);
@@ -107,9 +108,9 @@ function ArticleGenerator() {
       // Try sources.md first, then fall back to sources.txt
       let response;
       try {
-        response = await axios.get('/api/articles/sources.md');
+        response = await axios.get(`${API_BASE_URL}/api/articles/sources.md`);
       } catch {
-        response = await axios.get('/api/articles/sources.txt');
+        response = await axios.get(`${API_BASE_URL}/api/articles/sources.txt`);
       }
       setSources(response.data);
     } catch (err) {
@@ -119,7 +120,7 @@ function ArticleGenerator() {
 
   const handleArticleClick = async (filename) => {
     try {
-      const response = await axios.get(`/api/articles/${filename}`);
+      const response = await axios.get(`${API_BASE_URL}/api/articles/${filename}`);
       setArticle(response.data);
       setCurrentArticleFilename(filename);
       setShowOutput(true);
@@ -135,7 +136,7 @@ function ArticleGenerator() {
 
   const handleDownloadArticle = async (filename) => {
     try {
-      const response = await axios.get(`/api/articles/${filename}`);
+      const response = await axios.get(`${API_BASE_URL}/api/articles/${filename}`);
       const blob = new Blob([response.data], { type: 'text/plain' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -164,7 +165,7 @@ function ArticleGenerator() {
     setArticle('');
 
     try {
-      const response = await axios.post('/api/generate', {
+      const response = await axios.post(`${API_BASE_URL}/api/generate`, {
         query: query,
         article_type: articleType,
         skip_search: false
