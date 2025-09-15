@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import './MyArticles.css';
 
 function MyArticles({ isOpen, onClose }) {
@@ -43,8 +44,18 @@ function MyArticles({ isOpen, onClose }) {
   const handleViewArticle = async (filename) => {
     try {
       const response = await axios.get(`/api/articles/${filename}`);
+      let content = response.data;
+      
+      // Strip markdown code block wrapper if present
+      if (content.startsWith('```markdown\n') && content.endsWith('\n```')) {
+        content = content.slice(12, -4); // Remove ```markdown\n from start and \n``` from end
+      } else if (content.startsWith('```markdown') && content.endsWith('```')) {
+        content = content.slice(11, -3); // Remove ```markdown from start and ``` from end
+      }
+      
+      console.log('Processed content (first 200 chars):', content.substring(0, 200)); // Debug log
       setSelectedArticle(filename);
-      setSelectedArticleContent(response.data);
+      setSelectedArticleContent(content);
     } catch (err) {
       console.error('Error loading article:', err);
     }
@@ -99,7 +110,7 @@ function MyArticles({ isOpen, onClose }) {
               </div>
               <div className="article-viewer-content">
                 {selectedArticle && selectedArticle.endsWith('.md') ? (
-                  <ReactMarkdown>{selectedArticleContent}</ReactMarkdown>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{selectedArticleContent}</ReactMarkdown>
                 ) : (
                   <pre>{selectedArticleContent}</pre>
                 )}
@@ -158,7 +169,7 @@ function MyArticles({ isOpen, onClose }) {
                 {sources ? (
                   <div className="sources-wrapper">
                     <div className="sources-preview">
-                      <ReactMarkdown>{sources}</ReactMarkdown>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{sources}</ReactMarkdown>
                     </div>
                     <button 
                       className="action-btn download-sources-btn"

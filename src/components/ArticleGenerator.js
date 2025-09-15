@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import './ArticleGenerator.css';
 
 function ArticleGenerator() {
@@ -59,8 +60,19 @@ function ArticleGenerator() {
           if (job.status === 'completed') {
             // Fetch the article content
             const articleResponse = await axios.get(`/api/articles/${job.result.filename}`);
-            setArticle(articleResponse.data);
+            let content = articleResponse.data;
+            
+            // Strip markdown code block wrapper if present
+            if (content.startsWith('```markdown\n') && content.endsWith('\n```')) {
+              content = content.slice(12, -4); // Remove ```markdown\n from start and \n``` from end
+            } else if (content.startsWith('```markdown') && content.endsWith('```')) {
+              content = content.slice(11, -3); // Remove ```markdown from start and ``` from end
+            }
+            
+            setArticle(content);
             setCurrentArticleFilename(job.result.filename);
+            console.log('Article filename:', job.result.filename); // Debug log
+            console.log('Filename ends with .md?', job.result.filename.endsWith('.md')); // Debug log
             setLoading(false);
             setShowOutput(true);
             setJobId(null);
@@ -293,8 +305,10 @@ function ArticleGenerator() {
             </div>
           </div>
           <div className="article-content">
+            {console.log('Rendering - currentArticleFilename:', currentArticleFilename)}
+            {console.log('Is .md file?', currentArticleFilename && currentArticleFilename.endsWith('.md'))}
             {currentArticleFilename && currentArticleFilename.endsWith('.md') ? (
-              <ReactMarkdown>{article}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{article}</ReactMarkdown>
             ) : (
               <pre>{article}</pre>
             )}
