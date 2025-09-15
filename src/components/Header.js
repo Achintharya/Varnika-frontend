@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css';
 
-function Header({ onAboutClick }) {
+function Header({ onAboutClick, onMyArticlesClick }) {
   return (
     <header className="header">
       <div className="header-container">
@@ -11,6 +11,7 @@ function Header({ onAboutClick }) {
         </div>
         <nav className="nav">
           <a href="/" className="nav-link active">Home</a>
+          <button onClick={onMyArticlesClick} className="nav-link nav-button">My Articles</button>
           <button onClick={onAboutClick} className="nav-link nav-button">About</button>
         </nav>
       </div>
