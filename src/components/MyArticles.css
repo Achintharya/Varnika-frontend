@@ -278,6 +278,16 @@
   color: #ffffffd8;
 }
 
+.delete-btn {
+  color: #ff6b6bd8;
+}
+
+.delete-btn:hover {
+  background: #ff6b6b2f;
+  border-color: #ff4444d8;
+  color: #ff4444;
+}
+
 /* Sources Section */
 .sources-section {
   padding-top: 2rem;

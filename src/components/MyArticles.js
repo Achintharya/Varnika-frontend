@@ -78,6 +78,28 @@ function MyArticles({ isOpen, onClose }) {
     }
   };
 
+  const handleDeleteArticle = async (filename) => {
+    // Show confirmation dialog
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete "${filename.replace('article_', '').replace(/_/g, ' ').replace(/\d{8}\.md/, '').replace('.md', '').trim()}"?\n\nThis action cannot be undone.`
+    );
+    
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      await axios.delete(`/api/articles/${filename}`);
+      // Refresh the articles list after successful deletion
+      fetchArticles();
+      // Show success message (optional)
+      console.log(`Article ${filename} deleted successfully`);
+    } catch (err) {
+      console.error('Error deleting article:', err);
+      alert('Failed to delete article. Please try again.');
+    }
+  };
+
   const handleDownloadSources = () => {
     const blob = new Blob([sources], { type: 'text/markdown' });
     const url = window.URL.createObjectURL(blob);
@@ -145,14 +167,23 @@ function MyArticles({ isOpen, onClose }) {
                             <button 
                               className="card-btn view-btn" 
                               onClick={() => handleViewArticle(articleFile.filename)}
+                              title="View article"
                             >
                               👁️ View
                             </button>
                             <button 
                               className="card-btn download-btn" 
                               onClick={() => handleDownloadArticle(articleFile.filename)}
+                              title="Download article"
                             >
                               ⬇️ Download
+                            </button>
+                            <button 
+                              className="card-btn delete-btn" 
+                              onClick={() => handleDeleteArticle(articleFile.filename)}
+                              title="Delete article"
+                            >
+                              🗑️ Delete
                             </button>
                           </div>
                         </div>
