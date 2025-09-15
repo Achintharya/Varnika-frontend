@@ -9,11 +9,11 @@ function About({ isOpen, onClose }) {
       <div className="about-modal" onClick={(e) => e.stopPropagation()}>
         <button className="about-close" onClick={onClose}>×</button>
         
-        <h2 className="about-title">About Varnika</h2>
+        <h2 className="about-title">About Vārnika</h2>
         
         <div className="about-content">
           <section>
-            <h3>🚀 What is Varnika?</h3>
+            <h3>🚀 What is Vārnika?</h3>
             <p>
               Varnika is an intelligent article generation system that transforms your ideas into 
               well-researched, professionally written content. Simply enter a topic, and watch as 
@@ -45,7 +45,7 @@ function About({ isOpen, onClose }) {
           <section>
             <h3>🛠️ Technology Stack</h3>
             <p>
-              Varnika combines cutting-edge technologies to deliver high-quality content:
+              Vārnika combines cutting-edge technologies to deliver high-quality content:
             </p>
             <ul>
               <li>🔹 <strong>Frontend:</strong> React with modern, responsive design</li>
@@ -67,7 +67,7 @@ function About({ isOpen, onClose }) {
           </section>
 
           <section>
-            <h3>🌟 Why Choose Varnika?</h3>
+            <h3>🌟 Why Choose Vārnika?</h3>
             <ul>
               <li>⚡ <strong>Fast:</strong> Generate articles in seconds, not hours</li>
               <li>🎯 <strong>Accurate:</strong> Based on real web sources, no hallucinations</li>

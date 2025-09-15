@@ -23,7 +23,7 @@ function App() {
         <ArticleGenerator />
       </main>
       <footer className="footer">
-        <p>© 2025 Varnika. Built with ❤️ by Achintharya.</p>
+        <p>© 2025 Vārnika. Built with ❤️ by Achintharya.</p>
       </footer>
       <About isOpen={showAbout} onClose={() => setShowAbout(false)} />
       <MyArticles isOpen={showMyArticles} onClose={() => setShowMyArticles(false)} />
