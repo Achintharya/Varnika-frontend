@@ -1,5 +1,5 @@
 .generator-card {
-  background: rgba(255, 255, 255, 0.848);
+  background: rgba(255, 255, 255, 0.214);
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   padding: 2.5rem;
@@ -24,7 +24,9 @@
   width: 100%;
   padding: 1rem 1.25rem;
   font-size: 1rem;
-  border: 2px solid #e5e7eb;
+  color: #ffffff;
+  border: 2px solid #dededece;
+  background: rgba(137, 137, 137, 0.297);
   border-radius: 12px;
   outline: none;
   transition: all 0.3s ease;
@@ -32,8 +34,8 @@
 }
 
 .search-input:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  border-color: #c49d00;
+  box-shadow: 0 0 0 3px rgba(198, 119, 63, 0.1);
 }
 
 .search-input:disabled {
@@ -51,22 +53,23 @@
   width: 100%;
   padding: 1rem 1.25rem;
   font-size: 1rem;
-  border: 2px solid #e5e7eb;
+  color:#ffffffb2;
+  border: 2px solid #dededece;
   border-radius: 12px;
   outline: none;
   transition: all 0.3s ease;
-  background: white;
+  background: rgba(137, 137, 137, 0.297);
   cursor: pointer;
   font-family: "Inter", sans-serif;
 }
 
 .article-type-select:focus {
-  border-color: #4f46e5;
+  border-color: #c49d00;
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
 .article-type-select:disabled {
-  background: #f9fafb;
+  background: #f9fafb7c;
   cursor: not-allowed;
 }
 
@@ -76,7 +79,7 @@
   font-size: 1.125rem;
   font-weight: 600;
   color: white;
-  background: linear-gradient(135deg, #3893f5d7 0%, #4b0cb1da 100%);
+  background: linear-gradient(135deg, #4f6e05 0%, #b87201 100%);
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -100,7 +103,7 @@
 }
 
 .generate-btn.loading {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f6ff91 20%, #ffa514 100%);
   animation: pulse 2s infinite;
 }
 
@@ -130,7 +133,7 @@
 
 .progress-bar {
   height: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f6ff91 20%, #ffa514 100%);
   border-radius: 4px;
   transition: width 0.5s ease;
 }
@@ -203,8 +206,8 @@
 
 .action-btn:hover {
   background: #f9fafb;
-  border-color: #4f46e5;
-  color: #4f46e5;
+  border-color: #ee801f;
+  color: #d88510;
   transform: translateY(-1px);
 }
 
@@ -220,7 +223,7 @@
 
 .regenerate-btn:hover {
   background: #fef3c7;
-  border-color: #f59e0b;
+  border-color: #c4a50a;
   color: #f59e0b;
 }
 

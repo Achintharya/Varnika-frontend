@@ -14,7 +14,7 @@
 }
 
 .my-articles-modal {
-  background: rgba(255, 255, 255, 0.424);
+  background: #ffffff25;
   backdrop-filter: blur(10px);
   border-radius: 16px;
   width: 90%;
@@ -53,7 +53,7 @@
 .my-articles-title {
   font-size: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #3894f5 0%, #4b0cb1 100%);
+  background: linear-gradient(135deg, #f6ff91 20%, #ffa514 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -62,7 +62,7 @@
 }
 
 .my-articles-content {
-  color: #374151;
+  color: #ffffffbb;
 }
 
 /* Article Viewer */
@@ -80,14 +80,14 @@
 }
 
 .article-viewer-header h3 {
-  color: #1f2937;
+  color: #ebeff3e0;
   font-size: 1.5rem;
   font-weight: 600;
 }
 
 .back-btn {
   padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f6ff9198 20%, #ffa5149b 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -102,7 +102,7 @@
 }
 
 .article-viewer-content {
-  background: #f9fafb;
+  background: #f9fafb7b;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 2rem;
@@ -116,7 +116,7 @@
   font-family: "Inter", sans-serif;
   font-size: 0.95rem;
   line-height: 1.7;
-  color: #374151;
+  color: #b3bccb;
   margin: 0;
 }
 
@@ -127,7 +127,7 @@
 .article-viewer-content h4,
 .article-viewer-content h5,
 .article-viewer-content h6 {
-  color: #1f2937;
+  color: #ffffffc1;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
   font-weight: 600;
@@ -152,14 +152,14 @@
 .article-viewer-content p {
   margin: 1rem 0;
   line-height: 1.7;
-  color: #374151;
+  color: #f3f0f0bd;
 }
 
 .article-viewer-content ul,
 .article-viewer-content ol {
   margin: 1rem 0;
   padding-left: 2rem;
-  color: #374151;
+  color: #ffffffd6;
 }
 
 .article-viewer-content li {
@@ -168,7 +168,7 @@
 }
 
 .article-viewer-content a {
-  color: #4f46e5;
+  color: #ffffffd9;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -179,7 +179,7 @@
 }
 
 .article-viewer-content code {
-  background: #f3f4f6;
+  background: #ffffffd3;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
   font-family: "Courier New", monospace;
@@ -191,7 +191,7 @@
   display: block;
   padding: 1rem;
   background: #1f2937;
-  color: #f9fafb;
+  color: #ffffffdc;
   border-radius: 8px;
   overflow-x: auto;
 }
@@ -200,13 +200,13 @@
   border-left: 4px solid #4f46e5;
   padding-left: 1rem;
   margin: 1rem 0;
-  color: #6b7280;
+  color: #ffffffe5;
   font-style: italic;
 }
 
 .article-viewer-content strong {
   font-weight: 600;
-  color: #1f2937;
+  color: #ffffffe1;
 }
 
 .article-viewer-content em {
@@ -225,7 +225,7 @@
 }
 
 .articles-section h3 {
-  color: #1f2937;
+  color: #ffffffd0;
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
@@ -242,7 +242,7 @@
 }
 
 .article-card {
-  background: #f9fafbc6;
+  background: #f9fafb2c;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 1.5rem;
@@ -281,9 +281,9 @@
   padding: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e5e7ebc2;
   border-radius: 6px;
-  background: white;
+  background: #ffffff33;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -292,16 +292,23 @@
   gap: 0.25rem;
 }
 
+.view-btn {
+  color: #ffffffd8;
+}
+.download-btn {
+  color: #ffffffd8;
+}
+
 .view-btn:hover {
-  background: #eff6ff;
-  border-color: #4f46e5;
-  color: #4f46e5;
+  background: #f9fafb6f;
+  border-color: #cd9f14d8;
+  color: #ffffffd8;
 }
 
 .download-btn:hover {
-  background: #f0fdf4;
-  border-color: #10b981;
-  color: #10b981;
+  background: #ffffff6f;
+  border-color: #cd9f14d8;
+  color: #ffffffd8;
 }
 
 /* Sources Section */
@@ -311,7 +318,7 @@
 }
 
 .sources-section h3 {
-  color: #1f2937;
+  color: #ffffffe0;
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
@@ -327,7 +334,7 @@
 }
 
 .sources-preview {
-  background: #f9fafbc6;
+  background: #f9fafb2c;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 1rem;
@@ -341,7 +348,7 @@
   font-family: "Inter", sans-serif;
   font-size: 0.875rem;
   line-height: 1.6;
-  color: #374151;
+  color: #ffffff;
   margin: 0;
 }
 
@@ -349,7 +356,7 @@
 .sources-preview h1,
 .sources-preview h2,
 .sources-preview h3 {
-  color: #1f2937;
+  color: #ffffffd0;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
@@ -366,17 +373,17 @@
 
 .sources-preview li {
   margin: 0.25rem 0;
-  color: #374151;
+  color: #ffffffda;
 }
 
 .sources-preview a {
-  color: #4f46e5;
+  color: #e4b13bbb;
   text-decoration: none;
   word-break: break-all;
 }
 
 .sources-preview a:hover {
-  color: #6366f1;
+  color: #e4b13b;
   text-decoration: underline;
 }
 
@@ -385,9 +392,10 @@
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 500;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #ffffff72;
   border-radius: 8px;
-  background: #f9fafbc6;
+  color: #ffffffd8;
+  background: #ffffff49;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -396,18 +404,18 @@
 }
 
 .download-sources-btn:hover {
-  background: #f0fdf4;
-  border-color: #4510b9;
-  color: #b91010;
+  background: #f9fafb6f;
+  border-color: #cd9f14d8;
+  color: #ffffffd8;
   transform: translateY(-1px);
 }
 
 .empty-message {
-  color: #6b7280;
+  color: #ffffffcc;
   font-style: italic;
   text-align: center;
   padding: 2rem;
-  background: #f9fafb;
+  background: #f9fafb82;
   border-radius: 8px;
 }
 

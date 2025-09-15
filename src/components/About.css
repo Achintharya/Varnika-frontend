@@ -14,7 +14,7 @@
 }
 
 .about-modal {
-  background: rgba(255, 255, 255, 0.654);
+  background: #f9fafb1d;
   backdrop-filter: blur(10px);
   border-radius: 16px;
   width: 90%;
@@ -53,7 +53,7 @@
 .about-title {
   font-size: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #3894f5 0%, #4b0cb1 100%);
+  background: linear-gradient(135deg, #f6ff91 20%, #ffa514 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -62,7 +62,7 @@
 }
 
 .about-content {
-  color: #374151;
+  color: #ffffff;
   line-height: 1.7;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .about-content h3 {
-  color: #1f2937;
+  color: #ffffff;
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -82,7 +82,7 @@
 
 .about-content p {
   margin-bottom: 1rem;
-  color: #4b5563;
+  color: #ffffffc3;
 }
 
 .about-content ul,
@@ -93,11 +93,11 @@
 
 .about-content li {
   margin-bottom: 0.75rem;
-  color: #4b5563;
+  color: #ffffffc3;
 }
 
 .about-content strong {
-  color: #1f2937;
+  color: #ffffffe4;
   font-weight: 600;
 }
 
