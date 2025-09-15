@@ -209,7 +209,7 @@
 }
 
 .article-card {
-  background: #65656571;
+  background: #65656546;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 1.5rem;
@@ -250,7 +250,7 @@
   font-weight: 500;
   border: 1px solid #e5e7ebc2;
   border-radius: 6px;
-  background: #a4a3a331;
+  background: #65656546;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -311,7 +311,7 @@
 }
 
 .sources-preview {
-  background: #a4a3a331;
+  background: #65656546;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 1rem;
@@ -372,7 +372,7 @@
   border: 1px solid #ffffff72;
   border-radius: 8px;
   color: #ffffffd8;
-  background: #a4a3a331;
+  background: #65656546;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
