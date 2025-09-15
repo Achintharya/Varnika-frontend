@@ -6,7 +6,7 @@ function Header({ onAboutClick, onMyArticlesClick }) {
     <header className="header">
       <div className="header-container">
         <div className="logo">
-          <span className="logo-icon">✨</span>
+          <img src="/logo.png" alt="Vārnika" className="logo-image" />
           <span className="logo-text">Vārnika</span>
         </div>
         <nav className="nav">
