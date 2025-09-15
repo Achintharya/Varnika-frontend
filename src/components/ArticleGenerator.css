@@ -1,5 +1,5 @@
 .generator-card {
-  background: white;
+  background: rgba(255, 255, 255, 0.848);
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   padding: 2.5rem;
@@ -76,7 +76,7 @@
   font-size: 1.125rem;
   font-weight: 600;
   color: white;
-  background: linear-gradient(135deg, #3894f5 0%, #4b0cb1 100%);
+  background: linear-gradient(135deg, #3893f5d7 0%, #4b0cb1da 100%);
   border: none;
   border-radius: 12px;
   cursor: pointer;
