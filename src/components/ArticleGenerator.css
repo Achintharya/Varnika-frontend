@@ -199,13 +199,13 @@
 }
 
 .generate-btn.loading {
-  background: linear-gradient(135deg, #f6ff91 20%, #ffa514 100%);
+  background: linear-gradient(135deg, #4f6e05 0%, #b87201 100%);
   animation: pulse 2s infinite;
 }
 
 .error-message {
-  background: #fee2e2;
-  color: #dc2626;
+  background: #97979769;
+  color: #dc2626e1;
   padding: 0.75rem 1rem;
   border-radius: 8px;
   font-size: 0.875rem;
@@ -221,7 +221,7 @@
 .progress-bar-container {
   width: 100%;
   height: 8px;
-  background: #e5e7eb;
+  background: #5f5f5f51;
   border-radius: 4px;
   overflow: hidden;
   margin-bottom: 1rem;
@@ -229,7 +229,7 @@
 
 .progress-bar {
   height: 100%;
-  background: linear-gradient(135deg, #f6ff91 20%, #ffa514 100%);
+  background: linear-gradient(135deg, #eaff00 30%, #ff9d00 90%);
   border-radius: 4px;
   transition: width 0.5s ease;
 }
@@ -262,7 +262,7 @@
 .output-section {
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid #393939;
   animation: fadeIn 0.5s ease;
 }
 
@@ -276,23 +276,24 @@
 }
 
 .output-header h3 {
-  color: #1f2937;
+  color: #ffffffe2;
   font-size: 1.25rem;
   font-weight: 600;
 }
 
 .output-actions {
   display: flex;
-  gap: 0.75rem;
+  gap: 1.75rem;
 }
 
 .action-btn {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 500;
-  border: 1px solid #e5e7eb;
+  color: #ffffffda;
+  border: 1px solid #00000046;
   border-radius: 8px;
-  background: white;
+  background: #ffffff2a;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -301,37 +302,15 @@
 }
 
 .action-btn:hover {
-  background: #f9fafb;
+  background: #bebebe51;
   border-color: #ee801f;
-  color: #d88510;
+  color: #ffffff;
   transform: translateY(-1px);
 }
 
-.copy-btn:hover {
-  background: #eff6ff;
-}
-
-.download-btn:hover {
-  background: #f0fdf4;
-  border-color: #10b981;
-  color: #10b981;
-}
-
-.regenerate-btn:hover {
-  background: #fef3c7;
-  border-color: #c4a50a;
-  color: #f59e0b;
-}
-
-.close-btn:hover {
-  background: #fee2e2;
-  border-color: #ef4444;
-  color: #ef4444;
-}
-
 .article-content {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  background: #ffffff2a;
+  border: 1px solid #e5e7eb80;
   border-radius: 12px;
   padding: 1.5rem;
   max-height: 500px;
@@ -344,97 +323,22 @@
   font-family: "Inter", sans-serif;
   font-size: 0.95rem;
   line-height: 1.7;
-  color: #374151;
+  color: #41414146;
   margin: 0;
-}
-
-/* Markdown Styling */
-.article-content h1,
-.article-content h2,
-.article-content h3,
-.article-content h4,
-.article-content h5,
-.article-content h6 {
-  color: #1f2937;
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
-}
-
-.article-content h1 {
-  font-size: 2rem;
-  border-bottom: 2px solid #e5e7eb;
-  padding-bottom: 0.5rem;
-}
-
-.article-content h2 {
-  font-size: 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 0.3rem;
-}
-
-.article-content h3 {
-  font-size: 1.25rem;
-}
-
-.article-content p {
-  margin: 1rem 0;
-  line-height: 1.7;
-  color: #374151;
-}
-
-.article-content ul,
-.article-content ol {
-  margin: 1rem 0;
-  padding-left: 2rem;
-  color: #374151;
-}
-
-.article-content li {
-  margin: 0.5rem 0;
-  line-height: 1.6;
-}
-
-.article-content a {
-  color: #4f46e5;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.article-content a:hover {
-  color: #6366f1;
-  text-decoration: underline;
-}
-
-.article-content code {
-  background: #f3f4f6;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  font-family: "Courier New", monospace;
-  font-size: 0.9em;
-  color: #dc2626;
 }
 
 .article-content pre code {
   display: block;
   padding: 1rem;
-  background: #1f2937;
-  color: #f9fafb;
+  background: rgba(0, 0, 0, 0.256);
+  color: #f9fafbda;
   border-radius: 8px;
   overflow-x: auto;
 }
 
-.article-content blockquote {
-  border-left: 4px solid #4f46e5;
-  padding-left: 1rem;
-  margin: 1rem 0;
-  color: #6b7280;
-  font-style: italic;
-}
-
 .article-content strong {
   font-weight: 600;
-  color: #1f2937;
+  color: #ffffff;
 }
 
 .article-content em {
@@ -452,17 +356,17 @@
 }
 
 .article-content::-webkit-scrollbar-track {
-  background: #f3f4f6;
+  background: #41414131;
   border-radius: 4px;
 }
 
 .article-content::-webkit-scrollbar-thumb {
-  background: #9ca3af;
+  background: #464646af;
   border-radius: 4px;
 }
 
 .article-content::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
+  background: #00000088;
 }
 
 @keyframes fadeIn {
