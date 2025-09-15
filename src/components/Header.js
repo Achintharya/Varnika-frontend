@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css';
 
-function Header() {
+function Header({ onAboutClick }) {
   return (
     <header className="header">
       <div className="header-container">
@@ -11,9 +11,7 @@ function Header() {
         </div>
         <nav className="nav">
           <a href="/" className="nav-link active">Home</a>
-          <a href="#about" className="nav-link">About</a>
-          <a href="http://localhost:8000/docs" target="_blank" rel="noopener noreferrer" className="nav-link">Docs</a>
-          <a href="https://github.com/Achintharya/Varnika" target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a>
+          <button onClick={onAboutClick} className="nav-link nav-button">About</button>
         </nav>
       </div>
     </header>
