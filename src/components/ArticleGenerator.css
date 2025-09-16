@@ -44,6 +44,26 @@
   cursor: not-allowed;
 }
 
+.search-input::placeholder {
+  color: #ffffffdc;
+  opacity: 1;
+}
+
+.search-input::-webkit-input-placeholder {
+  color: #ffffffdc;
+  opacity: 1;
+}
+
+.search-input::-moz-placeholder {
+  color: #ffffffdc;
+  opacity: 1;
+}
+
+.search-input:-ms-input-placeholder {
+  color: #ffffffdc;
+  opacity: 1;
+}
+
 .select-group {
   display: flex;
   flex-direction: column;
