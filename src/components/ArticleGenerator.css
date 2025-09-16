@@ -34,9 +34,9 @@
 }
 
 .search-input:focus {
-  border-color: #c49d00;
-  box-shadow: 0 0 0 3px rgba(198, 119, 63, 0.1);
-  background: rgba(255, 255, 255, 0.154);
+  border-color: #ffd700;
+  background: #ffffff15;
+  color: #ffd700;
 }
 
 .search-input:disabled {
@@ -95,8 +95,9 @@
 }
 
 .dropdown-header:hover:not(.disabled) {
-  border-color: #c49d00;
-  background: #0000000f;
+  border-color: #ffd700;
+  background: #ffffff15;
+  color: #ffd700;
 }
 
 .dropdown-header.open {
