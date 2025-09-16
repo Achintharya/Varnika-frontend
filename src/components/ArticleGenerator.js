@@ -153,7 +153,7 @@ function ArticleGenerator() {
 
   const handleGenerate = async () => {
     if (!query.trim()) {
-      setError('Please enter a topic');
+      setError('Enter Topic');
       return;
     }
 

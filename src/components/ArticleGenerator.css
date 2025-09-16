@@ -224,12 +224,15 @@
 }
 
 .error-message {
-  background: #97979769;
-  color: #dc2626e1;
+  color: #cd0202;
   padding: 0.75rem 1rem;
   border-radius: 8px;
-  font-size: 0.875rem;
+  font-size: 1rem;
   animation: shake 0.5s;
+  text-align: center;
+  width: 40%;
+  box-sizing: border-box;
+  margin: 1rem auto 0 auto;
 }
 
 .progress-section {
