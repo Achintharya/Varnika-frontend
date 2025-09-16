@@ -813,13 +813,54 @@
   }
 }
 
+/* URL Toggle Button */
+.url-toggle-btn {
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #ffffffdc;
+  border: 2px solid #ffffff30;
+  border-radius: 12px;
+  background: #ffffff10;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.url-toggle-btn:hover:not(:disabled) {
+  border-color: #ffd700;
+  background: #ffffff15;
+  color: #ffd700;
+}
+
+.url-toggle-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.toggle-arrow {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+  color: #bb5003;
+}
+
+.toggle-arrow.open {
+  transform: rotate(180deg);
+}
+
 /* URL Extraction Section */
 .url-extraction-section {
   background: #ffffff08;
   border: 1px solid #ffffff15;
-  border-radius: 16px;
-  padding: 2rem;
-  margin-top: 2rem;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  animation: slideDown 0.3s ease;
 }
 
 .url-extraction-section h3 {

@@ -22,7 +22,7 @@ function ArticleGenerator() {
   
   // URL extraction states
   const [newUrls, setNewUrls] = useState(['']);
-  const [isExtracting, setIsExtracting] = useState(false);
+  const [showUrlExtraction, setShowUrlExtraction] = useState(false);
 
   // Article type options
   const articleTypeOptions = [
@@ -120,8 +120,13 @@ function ArticleGenerator() {
   };
 
   const handleGenerate = async () => {
-    if (!query.trim()) {
-      setError('Enter Topic');
+    // Check if we have URLs or topic
+    const validUrls = newUrls.filter(url => url.trim() && (url.startsWith('http://') || url.startsWith('https://')));
+    const hasUrls = validUrls.length > 0;
+    const hasTopic = query.trim();
+
+    if (!hasTopic && !hasUrls) {
+      setError('Enter a topic or provide URLs to extract from');
       return;
     }
 
@@ -133,11 +138,23 @@ function ArticleGenerator() {
     setArticle('');
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/generate`, {
-        query: query,
-        article_type: articleType,
-        skip_search: false
-      });
+      let response;
+      
+      if (hasUrls) {
+        // Generate article from URLs
+        response = await axios.post(`${API_BASE_URL}/api/generate/from-urls`, {
+          urls: validUrls,
+          query: hasTopic ? query.trim() : 'Article from URLs',
+          article_type: articleType
+        });
+      } else {
+        // Generate article from topic
+        response = await axios.post(`${API_BASE_URL}/api/generate`, {
+          query: query,
+          article_type: articleType,
+          skip_search: false
+        });
+      }
 
       setJobId(response.data.job_id);
     } catch (err) {
@@ -193,70 +210,8 @@ function ArticleGenerator() {
     setNewUrls(updatedUrls);
   };
 
-  const handleExtractUrls = async () => {
-    const validUrls = newUrls.filter(url => url.trim() && (url.startsWith('http://') || url.startsWith('https://')));
-    
-    if (validUrls.length === 0) {
-      alert('Please enter at least one valid URL (must start with http:// or https://)');
-      return;
-    }
-
-    if (!query.trim()) {
-      alert('Please enter a topic in the main search field first');
-      return;
-    }
-
-    setIsExtracting(true);
-    try {
-      const response = await axios.post(`${API_BASE_URL}/api/extract/urls`, {
-        urls: validUrls,
-        query: query.trim(),
-        save_to_sources: true
-      });
-
-      const jobId = response.data.job_id;
-
-      // Poll job status
-      const pollInterval = setInterval(async () => {
-        try {
-          const statusResponse = await axios.get(`${API_BASE_URL}/api/jobs/${jobId}`);
-          const status = statusResponse.data;
-
-          if (status.status === 'completed') {
-            clearInterval(pollInterval);
-            setIsExtracting(false);
-            
-            // Refresh sources
-            await fetchSources();
-            
-            // Clear form
-            setNewUrls(['']);
-            
-            const result = status.result;
-            alert(`Extraction completed!\n\nTotal URLs: ${result.total_urls}\nSuccessful: ${result.successful_extractions}\nFailed: ${result.failed_extractions}`);
-          } else if (status.status === 'failed') {
-            clearInterval(pollInterval);
-            setIsExtracting(false);
-            alert(`Extraction failed: ${status.error}`);
-          }
-        } catch (err) {
-          console.error('Error polling job status:', err);
-        }
-      }, 2000);
-
-      // Cleanup interval after 5 minutes
-      setTimeout(() => {
-        clearInterval(pollInterval);
-        if (isExtracting) {
-          setIsExtracting(false);
-        }
-      }, 300000);
-
-    } catch (err) {
-      console.error('Error extracting URLs:', err);
-      setIsExtracting(false);
-      alert('Failed to start URL extraction. Please try again.');
-    }
+  const toggleUrlExtraction = () => {
+    setShowUrlExtraction(!showUrlExtraction);
   };
 
   return (
@@ -273,6 +228,60 @@ function ArticleGenerator() {
             disabled={loading}
           />
         </div>
+
+        {/* Extract from URLs Button */}
+        <button
+          type="button"
+          className="url-toggle-btn"
+          onClick={toggleUrlExtraction}
+          disabled={loading}
+        >
+          🔗 Extract from URLs
+          <span className={`toggle-arrow ${showUrlExtraction ? 'open' : ''}`}>▼</span>
+        </button>
+
+        {/* Collapsible URL Extraction Section */}
+        {showUrlExtraction && (
+          <div className="url-extraction-section">
+            <div className="url-form">
+              <div className="form-group">
+                <label>URLs to Extract:</label>
+                <div className="urls-container">
+                  {newUrls.map((url, index) => (
+                    <div key={index} className="url-input-row">
+                      <input
+                        type="url"
+                        value={url}
+                        onChange={(e) => updateUrl(index, e.target.value)}
+                        placeholder="https://example.com"
+                        className="url-input"
+                        disabled={loading}
+                      />
+                      {newUrls.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => removeUrlField(index)}
+                          className="remove-url-btn"
+                          disabled={loading}
+                        >
+                          ×
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={addUrlField}
+                  className="add-url-btn"
+                  disabled={loading}
+                >
+                  + Add Another URL
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         
         <div className="select-group">
           <div className="custom-dropdown">
@@ -317,63 +326,6 @@ function ArticleGenerator() {
             {error}
           </div>
         )}
-      </div>
-
-      {/* URL Extraction Section */}
-      <div className="url-extraction-section">
-        <h3>Extract from URLs</h3>
-        <div className="url-form">
-          <div className="form-group">
-            <label>URLs to Extract:</label>
-            <div className="urls-container">
-              {newUrls.map((url, index) => (
-                <div key={index} className="url-input-row">
-                  <input
-                    type="url"
-                    value={url}
-                    onChange={(e) => updateUrl(index, e.target.value)}
-                    placeholder="https://example.com"
-                    className="url-input"
-                    disabled={isExtracting}
-                  />
-                  {newUrls.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => removeUrlField(index)}
-                      className="remove-url-btn"
-                      disabled={isExtracting}
-                    >
-                      ×
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
-            <button
-              type="button"
-              onClick={addUrlField}
-              className="add-url-btn"
-              disabled={isExtracting}
-            >
-              + Add Another URL
-            </button>
-          </div>
-
-          <button
-            onClick={handleExtractUrls}
-            className="extract-btn"
-            disabled={isExtracting}
-          >
-            {isExtracting ? (
-              <>
-                <span className="spinner"></span>
-                Extracting Content...
-              </>
-            ) : (
-              'Extract & Add to Sources'
-            )}
-          </button>
-        </div>
       </div>
 
       {loading && (
