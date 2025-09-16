@@ -149,7 +149,9 @@ function MyArticles({ isOpen, onClose }) {
           ) : (
             <>
               <div className="articles-section">
-                <h3>📚 Generated Articles</h3>
+                <div className="articles-header">
+                  <h3> Generated Articles</h3>
+                </div>
                 {articles.length > 0 ? (
                   <div className="articles-grid">
                     {articles.map((articleFile, index) => {
@@ -205,13 +207,13 @@ function MyArticles({ isOpen, onClose }) {
 
               <div className="sources-section">
                 <div className="sources-header">
-                  <h3>🔗 Research Sources</h3>
+                  <h3> Research Sources</h3>
                   <button 
                     className="edit-sources-btn"
                     onClick={() => setIsSourcesEditorOpen(true)}
                     title="Edit research sources"
                   >
-                    ✏️ Edit Sources
+                     Edit Sources
                   </button>
                 </div>
                 {sources ? (
