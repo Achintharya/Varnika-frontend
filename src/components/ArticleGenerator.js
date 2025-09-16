@@ -236,7 +236,7 @@ function ArticleGenerator() {
           onClick={toggleUrlExtraction}
           disabled={loading}
         >
-          🔗 Extract from URLs
+          Extract from URLs
           <span className={`toggle-arrow ${showUrlExtraction ? 'open' : ''}`}>▼</span>
         </button>
 

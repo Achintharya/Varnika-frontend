@@ -25,8 +25,8 @@
   padding: 1rem 1.25rem;
   font-size: 1rem;
   color: #ffffff;
-  border: 2px solid #dededece;
-  background: rgba(0, 0, 0, 0.072);
+  border: 2px solid #ffffff30;
+  background: #0000000f;
   border-radius: 12px;
   outline: none;
   transition: all 0.3s ease;
@@ -40,27 +40,27 @@
 }
 
 .search-input:disabled {
-  background: rgba(0, 0, 0, 0.072);
+  background: #0000000f;
   cursor: not-allowed;
 }
 
 .search-input::placeholder {
-  color: #ffffffdc;
+  color: #ffffffbf;
   opacity: 1;
 }
 
 .search-input::-webkit-input-placeholder {
-  color: #ffffffdc;
+  color: #ffffffbf;
   opacity: 1;
 }
 
 .search-input::-moz-placeholder {
-  color: #ffffffdc;
+  color: #ffffffbf;
   opacity: 1;
 }
 
 .search-input:-ms-input-placeholder {
-  color: #ffffffdc;
+  color: #ffffffbf;
   opacity: 1;
 }
 
@@ -82,11 +82,11 @@
   padding: 1rem 1.25rem;
   font-size: 1rem;
   color: #ffffffdc;
-  border: 2px solid #dededece;
+  border: 2px solid #ffffff30;
   border-radius: 12px;
   outline: none;
   transition: all 0.3s ease;
-  background: rgba(0, 0, 0, 0.072);
+  background: #0000000f;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -96,7 +96,7 @@
 
 .dropdown-header:hover:not(.disabled) {
   border-color: #c49d00;
-  background: rgba(0, 0, 0, 0.072);
+  background: #0000000f;
 }
 
 .dropdown-header.open {
@@ -107,7 +107,7 @@
 }
 
 .dropdown-header.disabled {
-  background: rgba(0, 0, 0, 0.072);
+  background: #0000000f;
   cursor: not-allowed;
   opacity: 0.7;
 }
@@ -816,13 +816,13 @@
 /* URL Toggle Button */
 .url-toggle-btn {
   width: 100%;
-  padding: 0.875rem 1.25rem;
-  font-size: 0.95rem;
-  font-weight: 500;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
   color: #ffffffdc;
   border: 2px solid #ffffff30;
   border-radius: 12px;
-  background: #ffffff10;
+  background: #0000000f;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
