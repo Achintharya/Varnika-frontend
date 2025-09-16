@@ -12,11 +12,15 @@ function MyArticles({ isOpen, onClose }) {
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [selectedArticleContent, setSelectedArticleContent] = useState('');
   const [isSourcesEditorOpen, setIsSourcesEditorOpen] = useState(false);
+  const [writingStyle, setWritingStyle] = useState('');
+  const [writingStyleFilename, setWritingStyleFilename] = useState('');
+  const [isUploadingStyle, setIsUploadingStyle] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       fetchArticles();
       fetchSources();
+      fetchWritingStyle();
     }
   }, [isOpen]);
 
@@ -114,6 +118,96 @@ function MyArticles({ isOpen, onClose }) {
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
   };
+
+  const fetchWritingStyle = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/writing-style`);
+      setWritingStyle(response.data || '');
+    } catch (err) {
+      console.error('Error fetching writing style:', err);
+      setWritingStyle('');
+    }
+  };
+
+  const handleFileUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.includes('text') && !file.name.endsWith('.txt') && !file.name.endsWith('.md')) {
+      alert('Please upload a text file (.txt or .md)');
+      return;
+    }
+
+    // Validate file size (max 1MB)
+    if (file.size > 1024 * 1024) {
+      alert('File size must be less than 1MB');
+      return;
+    }
+
+    setIsUploadingStyle(true);
+    try {
+      // Read the file content and send it as text
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        try {
+          const content = e.target.result;
+          const response = await axios.put(`${API_BASE_URL}/api/writing-style`, {
+            content: content
+          });
+          
+          setWritingStyle(content);
+          setWritingStyleFilename(file.name);
+          
+          // Show success message with details
+          if (response.data && response.data.content_length) {
+            alert(`Writing style uploaded successfully!\nFile: ${file.name}\nSize: ${response.data.content_length} characters`);
+          } else {
+            alert(`Writing style uploaded successfully!\nFile: ${file.name}`);
+          }
+        } catch (err) {
+          console.error('Error uploading writing style:', err);
+          const errorMessage = err.response?.data?.detail || 'Failed to upload writing style. Please try again.';
+          alert(errorMessage);
+        } finally {
+          setIsUploadingStyle(false);
+        }
+      };
+      
+      reader.onerror = () => {
+        console.error('Error reading file');
+        alert('Failed to read file. Please try again.');
+        setIsUploadingStyle(false);
+      };
+      
+      reader.readAsText(file);
+    } catch (err) {
+      console.error('Error processing file:', err);
+      alert('Failed to process file. Please try again.');
+      setIsUploadingStyle(false);
+    }
+
+    // Clear the input
+    event.target.value = '';
+  };
+
+  const handleClearWritingStyle = async () => {
+    if (!window.confirm('Are you sure you want to clear the writing style? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      await axios.delete(`${API_BASE_URL}/api/writing-style`);
+      setWritingStyle('');
+      setWritingStyleFilename('');
+      alert('Writing style cleared successfully!');
+    } catch (err) {
+      console.error('Error clearing writing style:', err);
+      const errorMessage = err.response?.data?.detail || 'Failed to clear writing style. Please try again.';
+      alert(errorMessage);
+    }
+  };
+
 
   const handleSourcesUpdated = () => {
     // Refresh sources when they are updated in the editor
@@ -239,6 +333,47 @@ function MyArticles({ isOpen, onClose }) {
                     >
                       ➕ Add Sources
                     </button>
+                  </div>
+                )}
+              </div>
+
+              <div className="writing-style-section">
+                <div className="writing-style-header">
+                  <h3>Writing Style</h3>
+                  <label className="upload-style-btn" htmlFor="style-upload">
+                    Upload Style
+                    <input
+                      id="style-upload"
+                      type="file"
+                      accept=".txt,.md,text/*"
+                      onChange={handleFileUpload}
+                      disabled={isUploadingStyle}
+                      style={{ display: 'none' }}
+                    />
+                  </label>
+                </div>
+                {writingStyle ? (
+                  <div className="writing-style-wrapper">
+                    <div className="writing-style-status">
+                      <p className="style-uploaded-message">📄 {writingStyleFilename || 'writing_style.txt'}</p>
+                    </div>
+                    <div className="writing-style-actions">
+                      <button 
+                        className="action-btn clear-style-btn"
+                        onClick={handleClearWritingStyle}
+                      >
+                        🗑️ Delete Style
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="empty-writing-style">
+                    <p className="empty-message">No writing style uploaded yet.</p>
+                  </div>
+                )}
+                {isUploadingStyle && (
+                  <div className="upload-progress">
+                    <p>Uploading writing style...</p>
                   </div>
                 )}
               </div>

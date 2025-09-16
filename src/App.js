@@ -17,7 +17,7 @@ function App() {
       />
       <main className="main-container">
         <div className="hero-section">
-          <h1 className="hero-title">Generate High-Quality Articles with AI</h1>
+          <h2 className="hero-title">Generate High-Quality Articles with AI</h2>
           <p className="hero-subtitle">Search, summarize, and write in one step.</p>
         </div>
         <ArticleGenerator />
