@@ -3,6 +3,7 @@ import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import API_BASE_URL from '../config/api';
+import SourcesEditor from './SourcesEditor';
 import './MyArticles.css';
 
 function MyArticles({ isOpen, onClose }) {
@@ -10,6 +11,7 @@ function MyArticles({ isOpen, onClose }) {
   const [sources, setSources] = useState('');
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [selectedArticleContent, setSelectedArticleContent] = useState('');
+  const [isSourcesEditorOpen, setIsSourcesEditorOpen] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -113,6 +115,11 @@ function MyArticles({ isOpen, onClose }) {
     window.URL.revokeObjectURL(url);
   };
 
+  const handleSourcesUpdated = () => {
+    // Refresh sources when they are updated in the editor
+    fetchSources();
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -197,27 +204,53 @@ function MyArticles({ isOpen, onClose }) {
               </div>
 
               <div className="sources-section">
-                <h3>🔗 Research Sources</h3>
+                <div className="sources-header">
+                  <h3>🔗 Research Sources</h3>
+                  <button 
+                    className="edit-sources-btn"
+                    onClick={() => setIsSourcesEditorOpen(true)}
+                    title="Edit research sources"
+                  >
+                    ✏️ Edit Sources
+                  </button>
+                </div>
                 {sources ? (
                   <div className="sources-wrapper">
                     <div className="sources-preview">
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>{sources}</ReactMarkdown>
                     </div>
-                    <button 
-                      className="action-btn download-sources-btn"
-                      onClick={handleDownloadSources}
-                    >
-                      ⬇️ Download Sources
-                    </button>
+                    <div className="sources-actions">
+                      <button 
+                        className="action-btn download-sources-btn"
+                        onClick={handleDownloadSources}
+                      >
+                        ⬇️ Download Sources
+                      </button>
+                    </div>
                   </div>
                 ) : (
-                  <p className="empty-message">No sources available yet.</p>
+                  <div className="empty-sources">
+                    <p className="empty-message">No sources available yet.</p>
+                    <button 
+                      className="add-sources-btn"
+                      onClick={() => setIsSourcesEditorOpen(true)}
+                    >
+                      ➕ Add Sources
+                    </button>
+                  </div>
                 )}
               </div>
             </>
           )}
         </div>
       </div>
+
+      {/* Sources Editor Modal */}
+      <SourcesEditor
+        isOpen={isSourcesEditorOpen}
+        onClose={() => setIsSourcesEditorOpen(false)}
+        onSourcesUpdated={handleSourcesUpdated}
+      />
     </div>
   );
 }

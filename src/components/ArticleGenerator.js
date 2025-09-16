@@ -19,6 +19,10 @@ function ArticleGenerator() {
   const [sources, setSources] = useState([]);
   const [currentArticleFilename, setCurrentArticleFilename] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  
+  // URL extraction states
+  const [newUrls, setNewUrls] = useState(['']);
+  const [isExtracting, setIsExtracting] = useState(false);
 
   // Article type options
   const articleTypeOptions = [
@@ -65,15 +69,13 @@ function ArticleGenerator() {
             
             // Strip markdown code block wrapper if present
             if (content.startsWith('```markdown\n') && content.endsWith('\n```')) {
-              content = content.slice(12, -4); // Remove ```markdown\n from start and \n``` from end
+              content = content.slice(12, -4);
             } else if (content.startsWith('```markdown') && content.endsWith('```')) {
-              content = content.slice(11, -3); // Remove ```markdown from start and ``` from end
+              content = content.slice(11, -3);
             }
             
             setArticle(content);
             setCurrentArticleFilename(job.result.filename);
-            console.log('Article filename:', job.result.filename); // Debug log
-            console.log('Filename ends with .md?', job.result.filename.endsWith('.md')); // Debug log
             setLoading(false);
             setShowOutput(true);
             setJobId(null);
@@ -88,7 +90,7 @@ function ArticleGenerator() {
         } catch (err) {
           console.error('Error checking job status:', err);
         }
-      }, 2000); // Poll every 2 seconds
+      }, 2000);
       
       return () => clearInterval(interval);
     }
@@ -105,7 +107,6 @@ function ArticleGenerator() {
 
   const fetchSources = async () => {
     try {
-      // Try sources.md first, then fall back to sources.txt
       let response;
       try {
         response = await axios.get(`${API_BASE_URL}/api/articles/sources.md`);
@@ -115,39 +116,6 @@ function ArticleGenerator() {
       setSources(response.data);
     } catch (err) {
       console.error('Error fetching sources:', err);
-    }
-  };
-
-  const handleArticleClick = async (filename) => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/api/articles/${filename}`);
-      setArticle(response.data);
-      setCurrentArticleFilename(filename);
-      setShowOutput(true);
-      // Extract query from filename
-      const queryMatch = filename.match(/article_(.+?)_\d+\.txt/);
-      if (queryMatch) {
-        setQuery(queryMatch[1].replace(/_/g, ' '));
-      }
-    } catch (err) {
-      console.error('Error loading article:', err);
-    }
-  };
-
-  const handleDownloadArticle = async (filename) => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/api/articles/${filename}`);
-      const blob = new Blob([response.data], { type: 'text/plain' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error('Error downloading article:', err);
     }
   };
 
@@ -180,7 +148,6 @@ function ArticleGenerator() {
 
   const handleCopy = () => {
     navigator.clipboard.writeText(article);
-    // Show a temporary success message
     const button = document.querySelector('.copy-btn');
     const originalText = button.textContent;
     button.textContent = 'Copied!';
@@ -208,6 +175,88 @@ function ArticleGenerator() {
   const handleCloseArticle = () => {
     setShowOutput(false);
     setArticle('');
+  };
+
+  // URL extraction functions
+  const addUrlField = () => {
+    setNewUrls([...newUrls, '']);
+  };
+
+  const removeUrlField = (index) => {
+    const updatedUrls = newUrls.filter((_, i) => i !== index);
+    setNewUrls(updatedUrls.length > 0 ? updatedUrls : ['']);
+  };
+
+  const updateUrl = (index, value) => {
+    const updatedUrls = [...newUrls];
+    updatedUrls[index] = value;
+    setNewUrls(updatedUrls);
+  };
+
+  const handleExtractUrls = async () => {
+    const validUrls = newUrls.filter(url => url.trim() && (url.startsWith('http://') || url.startsWith('https://')));
+    
+    if (validUrls.length === 0) {
+      alert('Please enter at least one valid URL (must start with http:// or https://)');
+      return;
+    }
+
+    if (!query.trim()) {
+      alert('Please enter a topic in the main search field first');
+      return;
+    }
+
+    setIsExtracting(true);
+    try {
+      const response = await axios.post(`${API_BASE_URL}/api/extract/urls`, {
+        urls: validUrls,
+        query: query.trim(),
+        save_to_sources: true
+      });
+
+      const jobId = response.data.job_id;
+
+      // Poll job status
+      const pollInterval = setInterval(async () => {
+        try {
+          const statusResponse = await axios.get(`${API_BASE_URL}/api/jobs/${jobId}`);
+          const status = statusResponse.data;
+
+          if (status.status === 'completed') {
+            clearInterval(pollInterval);
+            setIsExtracting(false);
+            
+            // Refresh sources
+            await fetchSources();
+            
+            // Clear form
+            setNewUrls(['']);
+            
+            const result = status.result;
+            alert(`Extraction completed!\n\nTotal URLs: ${result.total_urls}\nSuccessful: ${result.successful_extractions}\nFailed: ${result.failed_extractions}`);
+          } else if (status.status === 'failed') {
+            clearInterval(pollInterval);
+            setIsExtracting(false);
+            alert(`Extraction failed: ${status.error}`);
+          }
+        } catch (err) {
+          console.error('Error polling job status:', err);
+        }
+      }, 2000);
+
+      // Cleanup interval after 5 minutes
+      setTimeout(() => {
+        clearInterval(pollInterval);
+        if (isExtracting) {
+          setIsExtracting(false);
+        }
+      }, 300000);
+
+    } catch (err) {
+      console.error('Error extracting URLs:', err);
+      setIsExtracting(false);
+      alert('Failed to start URL extraction. Please try again.');
+    }
   };
 
   return (
@@ -270,6 +319,63 @@ function ArticleGenerator() {
         )}
       </div>
 
+      {/* URL Extraction Section */}
+      <div className="url-extraction-section">
+        <h3>Extract from URLs</h3>
+        <div className="url-form">
+          <div className="form-group">
+            <label>URLs to Extract:</label>
+            <div className="urls-container">
+              {newUrls.map((url, index) => (
+                <div key={index} className="url-input-row">
+                  <input
+                    type="url"
+                    value={url}
+                    onChange={(e) => updateUrl(index, e.target.value)}
+                    placeholder="https://example.com"
+                    className="url-input"
+                    disabled={isExtracting}
+                  />
+                  {newUrls.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeUrlField(index)}
+                      className="remove-url-btn"
+                      disabled={isExtracting}
+                    >
+                      ×
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={addUrlField}
+              className="add-url-btn"
+              disabled={isExtracting}
+            >
+              + Add Another URL
+            </button>
+          </div>
+
+          <button
+            onClick={handleExtractUrls}
+            className="extract-btn"
+            disabled={isExtracting}
+          >
+            {isExtracting ? (
+              <>
+                <span className="spinner"></span>
+                Extracting Content...
+              </>
+            ) : (
+              'Extract & Add to Sources'
+            )}
+          </button>
+        </div>
+      </div>
+
       {loading && (
         <div className="progress-section">
           <div className="progress-bar-container">
@@ -306,8 +412,6 @@ function ArticleGenerator() {
             </div>
           </div>
           <div className="article-content">
-            {console.log('Rendering - currentArticleFilename:', currentArticleFilename)}
-            {console.log('Is .md file?', currentArticleFilename && currentArticleFilename.endsWith('.md'))}
             {currentArticleFilename && currentArticleFilename.endsWith('.md') ? (
               <ReactMarkdown remarkPlugins={[remarkGfm]}>{article}</ReactMarkdown>
             ) : (
