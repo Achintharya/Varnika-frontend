@@ -177,14 +177,14 @@ function MyArticles({ isOpen, onClose }) {
                               onClick={() => handleDownloadArticle(articleFile.filename)}
                               title="Download article"
                             >
-                              ⬇️ Download
+                              ⬇️
                             </button>
                             <button 
                               className="card-btn delete-btn" 
                               onClick={() => handleDeleteArticle(articleFile.filename)}
                               title="Delete article"
                             >
-                              🗑️ Delete
+                              🗑️
                             </button>
                           </div>
                         </div>

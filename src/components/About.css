@@ -158,9 +158,10 @@
 
 @media (max-width: 768px) {
   .about-modal {
-    width: 95%;
+    width: 85%;
     padding: 1.5rem;
-    max-height: 90vh;
+    max-height: 75vh;
+    margin: 2rem;
   }
 
   .about-title {

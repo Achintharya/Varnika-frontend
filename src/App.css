@@ -78,15 +78,73 @@ body {
 }
 
 @media (max-width: 768px) {
+  .main-container {
+    padding: 1rem;
+  }
+
+  .hero-section {
+    margin-bottom: 2rem;
+  }
+
   .hero-title {
     font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
   }
 
   .hero-subtitle {
     font-size: 1rem;
+    line-height: 1.5;
   }
 
-  .main-container {
+  .footer {
     padding: 1rem;
+  }
+
+  .footer p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    padding: 0.75rem;
+  }
+
+  .hero-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .footer {
+    padding: 0.75rem;
+  }
+
+  .footer p {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .main-container {
+    padding: 0.5rem;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
   }
 }
