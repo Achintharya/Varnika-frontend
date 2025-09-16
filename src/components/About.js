@@ -9,15 +9,15 @@ function About({ isOpen, onClose }) {
       <div className="about-modal" onClick={(e) => e.stopPropagation()}>
         <button className="about-close" onClick={onClose}>×</button>
         
-        <h2 className="about-title">About Vārnika</h2>
+        <h2 className="about-title">About Akṣarajña</h2>
         
         <div className="about-content">
           <section>
-            <h3>What is Vārnika?</h3>
+            <h3>What is Akṣarajña?</h3>
             <p>
-              Varnika is an intelligent article generation system that transforms your ideas into 
+              Akṣarajña is an intelligent article generation system that transforms your ideas into 
               well-researched, professionally written content. Simply enter a topic, and watch as 
-              Varnika searches the web, analyzes information, and creates comprehensive articles 
+              Akṣarajña searches the web, analyzes information, and creates comprehensive articles 
               tailored to your needs.
             </p>
           </section>
@@ -45,7 +45,7 @@ function About({ isOpen, onClose }) {
           <section>
             <h3>Technology Stack</h3>
             <p>
-              Vārnika combines cutting-edge technologies to deliver high-quality content:
+              Akṣarajña combines cutting-edge technologies to deliver high-quality content:
             </p>
             <ul>
               <li> <strong>Frontend:</strong> React with modern, responsive design</li>
@@ -67,7 +67,7 @@ function About({ isOpen, onClose }) {
           </section>
 
           <section>
-            <h3>Why Choose Vārnika?</h3>
+            <h3>Why Choose Akṣarajña?</h3>
             <ul>
               <li><strong>Fast:</strong> Generate articles in seconds, not hours</li>
               <li> <strong>Accurate:</strong> Based on real web sources, no hallucinations</li>
@@ -78,7 +78,7 @@ function About({ isOpen, onClose }) {
 
           <section className="about-footer">
             <p>
-              <strong>Varnika</strong> - Transforming information into insight, one article at a time.
+              <strong>Akṣarajña</strong> - Transforming information into insight, one article at a time.
             </p>
             <p className="about-version">Version 1.0.0 | Built with ❤️ and AI</p>
           </section>

@@ -6,8 +6,8 @@ function Header({ onAboutClick, onMyArticlesClick }) {
     <header className="header">
       <div className="header-container">
         <div className="logo">
-          <img src="/logo.png" alt="Vārnika" className="logo-image" />
-          <span className="logo-text">Vārnika</span>
+          <img src="/logo.png" alt="Akṣarajña" className="logo-image" />
+          <span className="logo-text">Akṣarajña</span>
         </div>
         <nav className="nav">
           <a href="/" className="nav-link active">Home</a>
