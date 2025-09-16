@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import API_BASE_URL from '../config/api';
 import './SourcesEditor.css';
@@ -9,6 +9,7 @@ function SourcesEditor({ isOpen, onClose, onSourcesUpdated }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
+  const textareaRef = useRef(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -19,6 +20,17 @@ function SourcesEditor({ isOpen, onClose, onSourcesUpdated }) {
   useEffect(() => {
     setHasChanges(sources !== originalSources);
   }, [sources, originalSources]);
+
+  // Focus textarea when modal opens and data is loaded
+  useEffect(() => {
+    if (isOpen && !isLoading && textareaRef.current) {
+      // Small delay to ensure modal is fully rendered
+      const timer = setTimeout(() => {
+        textareaRef.current.focus();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, isLoading]);
 
   const fetchSources = async () => {
     setIsLoading(true);
@@ -115,8 +127,15 @@ function SourcesEditor({ isOpen, onClose, onSourcesUpdated }) {
               <>
                 <div className="editor-container">
                   <textarea
+                    ref={textareaRef}
                     value={sources}
                     onChange={(e) => setSources(e.target.value)}
+                    onKeyDown={(e) => {
+                      // Ensure space and enter work properly
+                      if (e.key === ' ' || e.key === 'Enter') {
+                        e.stopPropagation();
+                      }
+                    }}
                     placeholder="Enter your research sources in Markdown format...
 
 Example:
@@ -128,6 +147,7 @@ Example:
 - [Source 3](https://example3.com)"
                     className="sources-textarea"
                     disabled={isSaving}
+                    spellCheck={false}
                   />
                 </div>
 

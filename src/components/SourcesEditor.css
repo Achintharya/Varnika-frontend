@@ -109,20 +109,29 @@
   padding: 1.5rem;
   border: 2px solid #ffffff30;
   border-radius: 12px;
-  background: #ffffff10;
-  color: #ffffffd0;
-  font-size: 0.95rem;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  background: #ffffff15;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
   resize: vertical;
   transition: all 0.2s ease;
+  box-sizing: border-box;
+  caret-color: #ffd700;
 }
 
 .sources-textarea:focus {
   outline: none;
   border-color: #ffd700;
-  background: #ffffff15;
-  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+  background: #ffffff20;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.15);
+  caret-color: #ffd700;
+}
+
+.sources-textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #ffffff08;
 }
 
 .sources-textarea::placeholder {
